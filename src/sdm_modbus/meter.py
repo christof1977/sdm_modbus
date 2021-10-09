@@ -1,6 +1,8 @@
 import enum
 import time
 
+import serial.rs485
+
 from pymodbus.constants import Endian
 from pymodbus.client.sync import ModbusTcpClient
 from pymodbus.client.sync import ModbusSerialClient
@@ -103,7 +105,19 @@ class Meter:
                 if baud:
                     self.baud = baud
 
+                self.rts_level_for_tx = False
+                self.rts_level_for_rx = True
+                self.delay_before_tx = 0.0
+                self.delay_before_rx = -0.0
+
                 self.mode = connectionType.RTU
+                ser = serial.rs485.RS485(port=self.device, baudrate=self.baud)
+                ser.rs485_mode = serial.rs485.RS485Settings(rts_level_for_tx=self.rts_level_for_tx,
+                                            rts_level_for_rx=self.rts_level_for_rx,
+                                            delay_before_tx=self.delay_before_tx,
+                                            delay_before_rx=self.delay_before_rx)
+
+
                 self.client = ModbusSerialClient(
                     method="rtu",
                     port=self.device,
@@ -112,6 +126,8 @@ class Meter:
                     baudrate=self.baud,
                     timeout=self.timeout
                 )
+                self.client.socket = ser
+
             else:
                 self.host = kwargs.get("host")
                 self.port = kwargs.get("port", 502)
