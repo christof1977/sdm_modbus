@@ -14,6 +14,18 @@ class SDM72(SDM):
         super().__init__(*args, **kwargs)
 
         self.registers = {
+            "p1_voltage": (0x0000, 2, meter.registerType.INPUT, meter.registerDataType.FLOAT32, float, "P1 Voltage", "V", 1),
+            "p2_voltage": (0x0002, 2, meter.registerType.INPUT, meter.registerDataType.FLOAT32, float, "P2 Voltage", "V", 1),
+            "p3_voltage": (0x0004, 2, meter.registerType.INPUT, meter.registerDataType.FLOAT32, float, "P3 Voltage", "V", 1),
+            "p1_current": (0x0006, 2, meter.registerType.INPUT, meter.registerDataType.FLOAT32, float, "P1 Current", "A", 1),
+            "p2_current": (0x0008, 2, meter.registerType.INPUT, meter.registerDataType.FLOAT32, float, "P2 Current", "A", 1),
+            "p3_current": (0x000a, 2, meter.registerType.INPUT, meter.registerDataType.FLOAT32, float, "P3 Current", "A", 1),
+            "p1_power_factor": (0x001e, 2, meter.registerType.INPUT, meter.registerDataType.FLOAT32, float, "P1 Power Factor", "", 1),
+            "p2_power_factor": (0x0020, 2, meter.registerType.INPUT, meter.registerDataType.FLOAT32, float, "P2 Power Factor", "", 1),
+            "p3_power_factor": (0x0022, 2, meter.registerType.INPUT, meter.registerDataType.FLOAT32, float, "P3 Power Factor", "", 1),
+            "p1_phase_angle": (0x0024, 2, meter.registerType.INPUT, meter.registerDataType.FLOAT32, float, "P1 Phase Angle", "°", 1),
+            "p2_phase_angle": (0x0026, 2, meter.registerType.INPUT, meter.registerDataType.FLOAT32, float, "P2 Phase Angle", "°", 1),
+            "p3_phase_angle": (0x0028, 2, meter.registerType.INPUT, meter.registerDataType.FLOAT32, float, "P3 Phase Angle", "°", 1),
             "total_system_power": (0x0034, 2, meter.registerType.INPUT, meter.registerDataType.FLOAT32, float, "Total system power", "W", 1),
             "total_import_kwh": (0x0048, 2, meter.registerType.INPUT, meter.registerDataType.FLOAT32, float, "Total Import KWh", "kWh", 1),
             "total_export_kwh": (0x004A, 2, meter.registerType.INPUT, meter.registerDataType.FLOAT32, float, "Total Export KWh", "kWh", 1),
